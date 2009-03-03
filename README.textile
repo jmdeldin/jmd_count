@@ -1,16 +1,3 @@
-<?php
-$plugin = array(
-    'description' => 'Count stuff.',
-    'type' => 0,
-    'version' => '0.1.1',
-);
-if (!defined('txpinterface')) include_once '../zem_tpl.php';
-
-if (0) {
-?>
-
-# --- BEGIN PLUGIN HELP ---
-
 h1. jmd_count: Count stuff.
 
 This plugin counts rows in "Textpattern tables(Table reference)":http://textpattern.net/wiki/index.php?title=Database_Schema_Reference and plugin-created tables.
@@ -81,71 +68,5 @@ bc.. <table>
     </tr>
 </table>
 
-p. Tip: Combine jmd_count with "jmd_dashboard":http://jmdeldin.com/?plugins. :)
+p. Tip: Combine jmd_count with "jmd_dashboard":http://jmdeldin.com/#txp :).
 
-# --- END PLUGIN HELP ---
-
-<?php
-}
-
-# --- BEGIN PLUGIN CODE ---
-
-/**
- * Counts the number of rows in a table.
- * 
- * @param array $atts
- * @param string $atts['table'] MySQL table name.
- * @param string $atts['where'] MySQL WHERE clause.
- */
-function jmd_count($atts)
-{
-    extract(lAtts(array(
-        'table' => '',
-        'where' => '',
-    ), $atts));
-    if ($where != '')
-    {
-        $where = ' where '. $where;
-    }
-    $sum = getThing("select count(*) from ". safe_pfx($table) ." $where");
-    
-    return $sum;
-}
-
-/**
- * Evaluate counting results.
- * 
- * @param array $atts
- * @property string $atts['eval'] Valid PHP comparison operator.
- * @property string $atts['table'] MySQL table name.
- * @property string $atts['where'] MySQL WHERE clause.
- */
-function jmd_if_count($atts, $thing)
-{
-    extract(lAtts(array(
-        'eval' => '',
-        'table' => '',
-        'where' => '',
-    ), $atts));
-    global $jmd_count_value;
-    $jmd_count_value = jmd_count(array('table' => $table, 'where' => $where));
-    // TODO: 4.0.6 compat
-    $eval = html_entity_decode($eval);
-    $condition = eval("return($jmd_count_value $eval);");
-    $out = EvalElse($thing, $condition);
-
-    return parse($out);
-}
-
-/**
- * Returns the total number of rows as set by @see jmd_if_count()
- * 
- * @param array $atts
- */ 
-function jmd_count_value($atts)
-{
-    return $GLOBALS['jmd_count_value'];
-}
-
-# --- END PLUGIN CODE ---
-?>
