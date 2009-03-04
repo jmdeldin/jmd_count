@@ -26,8 +26,6 @@ function jmd_count($atts)
     if ($where != '')
         $where = ' where '. $where;
     return getThing("select count(*) from ". safe_pfx($table) ." $where");
-
-    return $sum;
 }
 
 /**
