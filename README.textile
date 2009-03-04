@@ -1,11 +1,14 @@
 h1. jmd_count: Count stuff.
 
+"Forum thread":http://forum.textpattern.com/viewtopic.php?pid=180208, "git
+repo":http://github.com/jmdeldin/jmd_count/
+
 This plugin counts rows in "Textpattern tables(Table reference)":http://textpattern.net/wiki/index.php?title=Database_Schema_Reference and plugin-created tables.
 
 h2. @<txp:jmd_count table="table_name" where="where_clause"/>@
 
 |_. Attribute |_. Available values |_. Default value |
-| @table@ | Existing MySQL table | -- | 
+| @table@ | Existing MySQL table | -- |
 | @where@ | Valid @WHERE@ clause | -- |
 
 h3. Example: Return the number of pending articles:
@@ -19,7 +22,6 @@ Same attributes as @jmd_count@ with the addition of @eval@.
 |_. Attribute |_. Available values |_. Default value |_. Description |
 | @eval@ | "Comparison operators":http://php.net/operators.comparison | -- | Compare the counted rows to @eval@ (e.g., @eval=">=1"@) |
 
-Note: For 4.0.6 you _must_ use HTML entities i.e., @eval="&gt;=1"@
 
 bc. <txp:jmd_if_count eval=">30" table="txp_form">
     Whoah! <txp:jmd_count_value/> forms is ridonkulous.

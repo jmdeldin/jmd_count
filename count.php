@@ -25,7 +25,7 @@ function jmd_count($atts)
     ), $atts));
     if ($where != '')
         $where = ' where '. $where;
-    $sum = getThing("select count(*) from ". safe_pfx($table) ." $where");
+    return getThing("select count(*) from ". safe_pfx($table) ." $where");
 
     return $sum;
 }
@@ -47,8 +47,6 @@ function jmd_if_count($atts, $thing)
     ), $atts));
     global $jmd_count_value;
     $jmd_count_value = jmd_count(array('table' => $table, 'where' => $where));
-    // TODO: 4.0.6 compat
-    $eval = html_entity_decode($eval);
     $condition = eval("return($jmd_count_value $eval);");
     $out = EvalElse($thing, $condition);
 
